@@ -13,6 +13,8 @@ public class Main {
         PathGen testPathGen = new PathGen(points);
         System.out.println(testPathGen.getDistances());
 
+        PathVisualRepresentation path = new PathVisualRepresentation();
+        path.Start();
 
 
     }

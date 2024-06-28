@@ -5,6 +5,8 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.chart.ChartFactory;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class PathVisualRepresentation extends JFrame {
     public void Start(){
@@ -38,6 +40,12 @@ public class PathVisualRepresentation extends JFrame {
 
         JFreeChart chart = ChartFactory.createXYLineChart("TEST", "X", "Y", dataset);
         add(new ChartPanel(chart));
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                System.exit(0);
+            }
+        });
         pack();
     }
 }

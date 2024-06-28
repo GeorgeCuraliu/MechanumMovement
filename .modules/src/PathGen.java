@@ -19,47 +19,51 @@ public class PathGen {
     Point c = new Point(0,0);
     Point d = new Point(0,0);
 
-
-
     public PathGen(ArrayList<Point> spRef){
         startingPoints = spRef;
         for(int i = 0;i<startingPoints.size(); i++)
-            tensions.add(1.0);
+            tensions.add(0.5);
         for(int i = 0; i<startingPoints.size()-1; i++)
             distances.add(dist(startingPoints.get(i + 1), startingPoints.get(i)));
 
-        for(int i = 0; i<startingPoints.size()-3; i++){
-            Point tempPoint = new Point(0,0);
+        for(int i = 1; i<startingPoints.size()-2; i++){
             Double t0 = 0d;
-            Double t1 = t0 + Math.pow(dist(startingPoints.getFirst(), startingPoints.get(1)), alpha);
-            Double t2 = t1 + Math.pow(dist(startingPoints.get(1), startingPoints.get(2)), alpha);
-            Double t3 = t2 + Math.pow(dist(startingPoints.get(2), startingPoints.get(3)), alpha);
+            Double t1 = t0 + Math.pow(dist(startingPoints.get(i-1), startingPoints.get(i)), alpha);
+            Double t2 = t1 + Math.pow(dist(startingPoints.get(i), startingPoints.get(i+1)), alpha);
+            Double t3 = t2 + Math.pow(dist(startingPoints.get(i+1), startingPoints.get(i+2)), alpha);
 
-            m1.x = (1 - tensions.get(i)) * (t2 - t1) * ((startingPoints.get(0).x - startingPoints.get(1).x) / (t0 - t1) - (startingPoints.get(0).x - startingPoints.get(2).x) / (t0 - t2) + (startingPoints.get(1).x - startingPoints.get(2).x) / (t1 - t2));
-            m1.y = (1 - tensions.get(i)) * (t2 - t1) * ((startingPoints.get(0).y - startingPoints.get(1).y) / (t0 - t1) - (startingPoints.get(0).y - startingPoints.get(2).y) / (t0 - t2) + (startingPoints.get(1).y - startingPoints.get(2).y) / (t1 - t2));
+            m1.x = (1 - tensions.get(i)) * (t2 - t1) * ((startingPoints.get(i-1).x - startingPoints.get(i).x) / (t0 - t1) - (startingPoints.get(i-1).x - startingPoints.get(i+1).x) / (t0 - t2) + (startingPoints.get(i).x - startingPoints.get(i+1).x) / (t1 - t2));
+            m1.y = (1 - tensions.get(i)) * (t2 - t1) * ((startingPoints.get(i-1).y - startingPoints.get(i).y) / (t0 - t1) - (startingPoints.get(i-1).y - startingPoints.get(i+1).y) / (t0 - t2) + (startingPoints.get(i).y - startingPoints.get(i+1).y) / (t1 - t2));
 
-            m2.x = (1 - tensions.get(i)) * (t2 - t1) * ((startingPoints.get(1).x - startingPoints.get(2).x) / (t1 - t2) - (startingPoints.get(1).x - startingPoints.get(3).x) / (t1 - t3) + (startingPoints.get(2).x - startingPoints.get(3).x) / (t2 - t3));
-            m2.y = (1 - tensions.get(i)) * (t2 - t1) * ((startingPoints.get(1).y - startingPoints.get(2).y) / (t1 - t2) - (startingPoints.get(1).y - startingPoints.get(3).y) / (t1 - t3) + (startingPoints.get(2).y - startingPoints.get(3).y) / (t2 - t3));
+            m2.x = (1 - tensions.get(i)) * (t2 - t1) * ((startingPoints.get(i).x - startingPoints.get(i+1).x) / (t1 - t2) - (startingPoints.get(i).x - startingPoints.get(i+2).x) / (t1 - t3) + (startingPoints.get(i+1).x - startingPoints.get(i+2).x) / (t2 - t3));
+            m2.y = (1 - tensions.get(i)) * (t2 - t1) * ((startingPoints.get(i).y - startingPoints.get(i+1).y) / (t1 - t2) - (startingPoints.get(i).y - startingPoints.get(i+2).y) / (t1 - t3) + (startingPoints.get(i+1).y - startingPoints.get(i+2).y) / (t2 - t3));
 
-            a.x = 2 * startingPoints.get(1).x - 2 * startingPoints.get(2).x + m1.x + m2.x;
-            a.y = 2 * startingPoints.get(1).y - 2 * startingPoints.get(2).y + m1.y + m2.y;
-            b.x = -3 * startingPoints.get(1).x + 3 * startingPoints.get(2).x - 2 * m1.x - m2.x;
-            b.y = -3 * startingPoints.get(1).y + 3 * startingPoints.get(2).y - 2 * m1.y - m2.y;
+            a.x = 2 * startingPoints.get(i).x - 2 * startingPoints.get(i+1).x + m1.x + m2.x;
+            a.y = 2 * startingPoints.get(i).y - 2 * startingPoints.get(i+1).y + m1.y + m2.y;
+            b.x = -3 * startingPoints.get(i).x + 3 * startingPoints.get(i+1).x - 2 * m1.x - m2.x;
+            b.y = -3 * startingPoints.get(i).y + 3 * startingPoints.get(i+1).y - 2 * m1.y - m2.y;
             c.x = m1.x;
             c.y = m1.y;
-            d.x = startingPoints.get(1).x;
-            d.y = startingPoints.get(1).y;
-            amount = Math.max(10, Math.ceil(dist(startingPoints.get(0), startingPoints.get(1)) / 10));
+            d.x = startingPoints.get(i).x;
+            d.y = startingPoints.get(i).y;
 
-            finalPoints.add(new ArrayList<>());
+
+
+//            System.out.println(a.x+" "+a.y+" | "+b.x+" "+b.y+" | "+c.x+" "+c.y+" | "+d.x+" "+d.y+"\n");
+
+            amount = Math.max(5, Math.ceil(dist(startingPoints.get(i-1), startingPoints.get(i)) / 10.0));
+
+            ArrayList<Point> tempArr = new ArrayList<>();
 
             for(int j = 1; j<=amount; j++){
                 double t = j / amount;
+                Point tempPoint = new Point(0,0);
                 tempPoint.x = a.x*t*t*t+b.x*t*t+c.x*t+d.x;
                 tempPoint.y = a.y*t*t*t+b.y*t*t+c.y*t+d.y;
 
-                finalPoints.get(i).add(tempPoint);
+                tempArr.add(tempPoint);
             }
+            finalPoints.add(tempArr);
         }
     }
     private static double dist(Point a, Point b){

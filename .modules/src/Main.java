@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Wheels wheels = new Wheels(3,10,10);
         points.add(new Point(1,1));
-        points.add(new Point(2,3));
+        points.add(new Point(2,4));
         points.add(new Point(3,2));
         points.add(new Point(6,1));
 

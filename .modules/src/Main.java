@@ -7,7 +7,7 @@ public class Main {
         Wheels wheels = new Wheels(3,10,10);
         points.add(new Point(1,1));
         points.add(new Point(2,3));
-        points.add(new Point(3,2));
+        points.add(new Point(4,2));
         points.add(new Point(1,1));
 
         PathGen testPathGen = new PathGen(points);

@@ -98,6 +98,13 @@ public class Main {
 //        PathVisualRepresentation path = new PathVisualRepresentation();
 //        path.Start();
 
+        HalfMinePF path1 = new HalfMinePF(2);
+        path1.AddPoint(2,1, false);
+        path1.AddPoint(3,2);
+        path1.AddPoint(3,3, false);
+        path1.AddPoint(2,5);
+        path1.AddPoint(5,5, false);
+        path1.Build();
 
     }
 

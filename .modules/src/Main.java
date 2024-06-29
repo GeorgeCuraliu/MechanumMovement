@@ -1,3 +1,5 @@
+
+
 import java.util.ArrayList;
 
 public class Main {
@@ -106,6 +108,10 @@ public class Main {
         path1.AddPoint(5,5, false);
         path1.Build();
 
+        OdometryCore.initialize(8100, 2, 5,5,6);
+        EncoderPositions encoderPositions = new EncoderPositions(4000, 5000, 200);
+        OdometryPosition position = OdometryCore.getInstance().getCurrentPosition(encoderPositions);
+        System.out.println(position.getX()+" "+position.getY()+" " +position.getHeadingDegrees());
     }
 
 }

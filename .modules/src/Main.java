@@ -2,10 +2,43 @@ import java.util.ArrayList;
 
 public class Main {
     static ArrayList<Point> startPoints = new ArrayList<>();
+    static ArrayList<Double> distances = new ArrayList<>();
     static ArrayList<ArrayList<Point>> finalPoints = new ArrayList<>();
     public static void main(String[] args) {
 
+        startPoints.add(new Point(1,1));
+        startPoints.add(new Point(2,2));
+        startPoints.add(new Point(3,2));
+        startPoints.add(new Point(4,3));
+        startPoints.add(new Point(5,5));
+        startPoints.add(new Point(6,4));
+        startPoints.add(new Point(7,4));
+        startPoints.add(new Point(8,4));
+        startPoints.add(new Point(9,4));
+        startPoints.add(new Point(10,4));
+        startPoints.add(new Point(11,4));
+        startPoints.add(new Point(12,4));
+
+
         Wheels wheels = new Wheels(3,10,10);
+
+        for(int i = 0; i<startPoints.size()-1; i++){
+            distances.add(PathGen.dist(startPoints.get(i),startPoints.get(i+1)));
+        }
+
+        PID controller = new PID(startPoints, distances, new double[]{0.1, 0.5, 0.06});
+        System.out.println(controller.calcOutput(2,11));
+
+
+
+
+
+
+
+
+    }
+
+    public void test(){
 //        startPoints.add(new Point(1,2));
 //        startPoints.add(new Point(1.5,1));
         startPoints.add(new Point(0.3,-9.94));
@@ -94,10 +127,6 @@ public class Main {
         float e = calc.determinant(floatArr5, sizeOfArr);
 
         System.out.println(a+" "+-b+" "+c+" "+-d+" "+e);
-
-//        PathVisualRepresentation path = new PathVisualRepresentation();
-//        path.Start();
-
 
     }
 

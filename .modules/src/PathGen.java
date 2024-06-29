@@ -66,7 +66,7 @@ public class PathGen {
             finalPoints.add(tempArr);
         }
     }
-    private static double dist(Point a, Point b){
+    public static double dist(Point a, Point b){
         return Math.sqrt(Math.pow(a.x-b.x,2)+Math.pow(a.y-b.y,2));
     }
     public ArrayList<Double> getDistances(){
